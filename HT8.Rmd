@@ -25,6 +25,10 @@ library(dummy)
 library(fastDummies)
 library(randomForest)
 library(corrplot)
+library(nnet)
+library(RWeka)
+library(neural)
+library(neuralnet)
 ```
 
 
@@ -193,4 +197,9 @@ partition <- createDataPartition(y=expected_result, p=.75, list=F)
 train_set <- clean_data[partition,]
 test_set <- clean_data[-partition,]
 ```
+
+
+## 3 - Genere dos modelos de redes neuronales que sean capaz de clasificar usando la variable respuesta que categoriza las casas baratas, medias y caras. Estos modelos deben tener distintas topologias y funciones de activación.
+
+
 

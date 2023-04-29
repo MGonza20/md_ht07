@@ -179,6 +179,8 @@ for(n in 1:length(msz)) {
 columns_used <- append(columns_used, "mSZoning")
 
 clean_data <- subset(data, select = columns_used)
+clean_data <- na.omit(clean_data)
+
 ```
 
 ## 1 - Use los mismos conjuntos de entrenamiento y prueba de las hojas de trabajo pasadas para probar el algoritmo.
@@ -197,16 +199,11 @@ train_set <- clean_data[partition,]
 test_set <- clean_data[-partition,]
 ```
 
-```{r}
-str(clean_data)
-```
-
 
 ## 3 - Genere dos modelos de redes neuronales que sean capaz de clasificar usando la variable respuesta que categoriza las casas baratas, medias y caras. Estos modelos deben tener distintas topologias y funciones de activación.
 
 ```{r}
-modelo.nn2 <- nnet(economy~.,data = clean_data,subset = partition, size=2, rang=0.1, decay=5e-4, maxit=200) 
-
+modelo.nn1 <- neuralnet(economy~., data=train_set, hidden=3, act.fct="logistic", linear.output = FALSE)
+modelo.nn2 <- neuralnet(economy~., data=train_set, hidden= c(5, 3, 2), act.fct="tanh", linear.output = FALSE)
 ```
-
 

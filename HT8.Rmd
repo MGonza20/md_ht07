@@ -203,7 +203,16 @@ test_set <- clean_data[-partition,]
 ## 3 - Genere dos modelos de redes neuronales que sean capaz de clasificar usando la variable respuesta que categoriza las casas baratas, medias y caras. Estos modelos deben tener distintas topologias y funciones de activación.
 
 ```{r}
-modelo.nn1 <- neuralnet(economy~., data=train_set, hidden=3, act.fct="logistic", linear.output = FALSE)
+modelo.nn1 <- neuralnet(economy~., data=train_set, hidden=4, act.fct="logistic", linear.output = FALSE)
 modelo.nn2 <- neuralnet(economy~., data=train_set, hidden= c(5, 3, 2), act.fct="tanh", linear.output = FALSE)
 ```
 
+
+## 4 - Use los modelos para predecir el valor de la variable respuesta.
+
+```{r}
+test_set$pred1NeuralNet<-round(predict(modelo.nn1, newdata = test_set), 0)
+test_set$pred2NeuralNet<-round(predict(modelo.nn2, newdata = test_set), 0)
+```
+
+## 5 - 

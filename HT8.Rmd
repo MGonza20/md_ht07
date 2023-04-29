@@ -27,7 +27,6 @@ library(randomForest)
 library(corrplot)
 library(nnet)
 library(RWeka)
-library(neural)
 library(neuralnet)
 ```
 
@@ -187,7 +186,7 @@ clean_data <- subset(data, select = columns_used)
 ## 2 - Use como variable respuesta la variable categórica que especifica si la casa es barata, media o cara
 
 ```{r}
-clean_data$economy <- ifelse(clean_data$salePrice < 163000, "Economic", ifelse(clean_data$salePrice >= 163000 & clean_data$salePrice <= 214000, "Average", "Expensive"))
+clean_data$economy <- ifelse(clean_data$salePrice < 163000, 0, ifelse(clean_data$salePrice >= 163000 & clean_data$salePrice <= 214000, 1, 2))
 ```
 
 ``` {r}
@@ -198,8 +197,16 @@ train_set <- clean_data[partition,]
 test_set <- clean_data[-partition,]
 ```
 
+```{r}
+str(clean_data)
+```
+
 
 ## 3 - Genere dos modelos de redes neuronales que sean capaz de clasificar usando la variable respuesta que categoriza las casas baratas, medias y caras. Estos modelos deben tener distintas topologias y funciones de activación.
 
+```{r}
+modelo.nn2 <- nnet(economy~.,data = clean_data,subset = partition, size=2, rang=0.1, decay=5e-4, maxit=200) 
+
+```
 
 
